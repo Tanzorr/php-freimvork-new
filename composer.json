@@ -1,0 +1,15 @@
+{
+    "name": "olexandr/php-mvs-new",
+    "autoload": {
+        "psr-4": {
+            "app\\": "./"
+        }
+    },
+    "authors": [
+        {
+            "name": "olexandr",
+            "email": "alexx1984@ukr.net"
+        }
+    ],
+    "require": {}
+}
