@@ -13,22 +13,13 @@
 <nav class="navbar navbar-default">
     <div class="container-fluid">
         <div class="navbar-header">
-            <a class="navbar-brand" href="#">WebSiteName</a>
+            <a class="navbar-brand" href="/">Home</a>
         </div>
-        <ul class="nav navbar-nav">
-            <li class="active"><a href="/">Home</a></li>
-            <li><a href="/contacts">Contacts</a></li>
-            <li><a href="/#">Page 2</a></li>
-            <li><a href="/#">Page 3</a></li>
-        </ul>
-        <ul class="nav navbar-nav mr-right">
-            <li><a href="/login">Login</a></li>
-            <li><a href="/register">Register</a></li>
-        </ul>
     </div>
 </nav>
 
 <div class="container">
+    <h1>Auth</h1>
     {{ content }}
 </div>
 
