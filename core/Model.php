@@ -29,8 +29,9 @@ abstract class Model
                 $value = $this->{$attribute};
                 foreach ($rules as $rule) {
                     $ruleName = $rule;
+
                     if (!is_string($ruleName)) {
-                        $ruleName = $rules[0];
+                        $ruleName = $rule[0];
                     }
 
                     if ($ruleName === self::RULE_REQUIRED && !$value) {
@@ -40,15 +41,28 @@ abstract class Model
                     if($ruleName === self::RULE_EMAIL && !filter_var($value, FILTER_VALIDATE_EMAIL)){
                         $this->addError($attribute, self::RULE_EMAIL);
                     }
+                    if($ruleName === self::RULE_MIN && strlen($value) < $rule['min']){
+                        $this->addError($attribute, self::RULE_MIN, $rule);
+                    }
+                    if($ruleName === self::RULE_MAX && strlen($value) > $rule['max']){
+                        $this->addError($attribute, self::RULE_MIN, $rule);
+                    }
+
+                    if($ruleName === self::RULE_MATH && $value !== $this->{$rule['match']}){
+                        $this->addError($attribute, self::RULE_MATH, $rule);
+                    }
                 }
             }
         }
         return empty($this->errors);
     }
 
-    private function addError(string $attribute, string $rule)
+    private function addError(string $attribute, string $rule, $params = [])
     {
         $message = $this->errorMessages()[$rule] ?? '';
+        foreach ($params as $key => $value){
+            $message = str_replace("{{$key}}", $value, $message);
+        }
         $this->errors[$attribute][] = $message;
     }
 
@@ -59,8 +73,16 @@ abstract class Model
             self::RULE_EMAIL => 'This field must be valid email address',
             self::RULE_MIN => 'This length of the field must be {min}',
             self::RULE_MAX=> 'This length of the field must be {max}',
-            self::RULE_MATH => 'This field must be the same as {match'
+            self::RULE_MATH => 'This field must be the same as {match}'
         ];
+    }
+
+    public function hasError(string $attribute): void
+    {
+    }
+
+    public function getFirstError(string $attribute)
+    {
     }
 
 }
