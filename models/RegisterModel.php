@@ -10,7 +10,7 @@ class RegisterModel extends Model
     public string $lastName = '';
     public string $email = '';
     public string $password = '';
-    public string $confirmPassword = '';
+    public string $confirmPassword = '';//$confirmPassword
 
     /**
      * @param string $firstName

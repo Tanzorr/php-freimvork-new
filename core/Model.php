@@ -77,8 +77,9 @@ abstract class Model
         ];
     }
 
-    public function hasError(string $attribute): void
+    public function hasError(string $attribute)
     {
+        return $this->errors[$attribute] ?? false;
     }
 
     public function getFirstError(string $attribute)
