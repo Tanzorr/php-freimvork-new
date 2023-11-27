@@ -2,9 +2,10 @@
 
 namespace app\models;
 
+use app\core\DbModel;
 use app\core\Model;
 
-class RegisterModel extends Model
+class User extends DbModel
 {
     public string $firstName = '';
     public string $lastName = '';
@@ -16,11 +17,14 @@ class RegisterModel extends Model
      * @param string $firstName
      */
 
+    public function tableName(): string
+    {
+       return 'users';
+    }
 
     public function register()
     {
-        echo "Create new User";
-
+        return $this->save();
     }
 
     public function rules(): array
@@ -32,6 +36,11 @@ class RegisterModel extends Model
             'password'=>[self::RULE_REQUIRED, [self::RULE_MIN, 'min'=>4], [self::RULE_MAX, 'max'=>20]],
             'confirmPassword'=>[self::RULE_REQUIRED, [self::RULE_MATH, 'match'=>'password']],
         ];
+    }
+
+    public function attributes(): array
+    {
+       return ['firstName', 'lastName', 'email', 'password'];
     }
 
 }

@@ -3,6 +3,7 @@
 namespace app\core;
 
 use app\migrations\m0002_add_password_column;
+use PDO;
 
 class Database
 {
@@ -25,6 +26,7 @@ class Database
         $newMigrations = [];
         $files = scandir(Application::$ROOT_DIR.'/migrations');
         $toApplyMigrations = array_diff($files, $appliedMigrations);
+
         foreach ($toApplyMigrations as $migration){
             if($migration ==='.' || $migration === '..'){
                 continue;
@@ -65,7 +67,7 @@ class Database
         $statement = $this->pdo->prepare("SELECT migration FROM migrations");
         $statement->execute();
 
-        return $statement->fetchAll();
+        return $statement->fetchAll(PDO::FETCH_COLUMN, 0);
     }
 
     private function saveMigrations(array $migrations)
