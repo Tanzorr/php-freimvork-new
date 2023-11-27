@@ -24,6 +24,15 @@ services:
       MYSQL_DATABASE: php_mvc
       MYSQL_USER: php_mvc
       MYSQL_PASSWORD: php_mvc
-
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    ports:
+      - "8181:80"
+    environment:
+      PMA_HOST: db
+      PMA_PORT: 3306
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_USER: php_mvc
+      MYSQL_PASSWORD: php_mvc
 volumes:
   mysql-data:
